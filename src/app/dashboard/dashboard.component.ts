@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ICart } from '../Interfaces/cart-interface';
 import { ICourse } from '../Interfaces/course-interface';
 import { DashboardService } from '../services/dashboard-service/dashboard.service';
 
@@ -9,7 +11,7 @@ import { DashboardService } from '../services/dashboard-service/dashboard.servic
 })
 export class DashboardComponent implements OnInit {
   
-
+  
   CourseList!: ICourse[];
   CartCourses: ICourse[] =  [];
   CartValue: number = 0;
@@ -18,7 +20,7 @@ export class DashboardComponent implements OnInit {
   //varables for pagination
   currentPage: any = 1;
   totalRecords : any;
-  constructor(private _dashboardService: DashboardService) { }
+  constructor(private _dashboardService: DashboardService, private router: Router) { }
   
 
   
@@ -50,18 +52,25 @@ export class DashboardComponent implements OnInit {
       this.CartCourses.push(course);
 
       //adding actual price or discounted price to the total sum if exists
-      for(var val of this.CartCourses)
-      {
-        if(val.discounted_price != null)
+    
+        if(course.discounted_price != null)
         {
-          var sum = Number(val.discounted_price);
+          var sum = 0;
+          sum = Number(course.discounted_price);
           this.CartValue = this.CartValue + sum;
         }
         else{
-          var sum = Number(val.actual_price);
+          var sum = 0;
+          sum = Number(course.actual_price);
           this.CartValue = this.CartValue + sum;
         }
-      }
+      
   }
+
+  checkout()
+  {
+     this.router.navigateByUrl('/cart',{state : [ this.CartCourses, this.CartValue]});
+  }
+
 
 }

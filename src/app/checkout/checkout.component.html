@@ -1,0 +1,70 @@
+<div class="container-fluid" style="padding: 20px;">
+   
+    <div class="row">
+    <div class="col-lg-8">
+        
+      <div style="padding: 10px;">
+        <div *ngFor="let c of CartCourses">
+        <div  class ="card" >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2"> 
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                    </div>
+                    <div class="col-sm-4"> 
+                        <div class="card-body">
+                            <h5 class="card-title">{{c.title}}</h5>
+                            <p class="card-text">{{c.author}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"> 
+                        <div class="card-body">
+                            <a href="#" style="text-decoration: none;"><small>Move to Wishlist</small></a>
+                        </div>  
+                    </div>
+                    <div class="col-sm-2"> 
+                        <div class="card-body">
+                            <div *ngIf="c.discounted_price">
+                                <p class="card-text">₹{{c.discounted_price}}</p>     
+                            </div>
+                            <div *ngIf="!c.discounted_price">
+                                <p>₹{{c.actual_price}}</p>  
+                            </div>  
+                        </div>  
+                    </div>  
+                    <div class="col-sm-1"> 
+                        <div class="card-body">
+                            <a (click)="removeItemFromCart(c.id)"><i class="fa fa-trash"></i></a>
+                        </div>  
+                    </div>
+                         
+                </div>
+            </div> 
+        </div>
+        </div>
+       </div>
+      
+    </div> 
+      <div class="col-lg-4" style="padding: 10px;">
+        <div class="card" >
+            <div class="card-body">
+              <p class="card-text">Total Amount</p>
+              <h4 class="card-text">₹{{totalCartValue}}</h4>
+              <small style="color: olivedrab;">You have saved ₹{{actualPrice - totalCartValue}}</small>
+            </div>
+                
+          
+            <div class="card-footer text-muted">
+                <div class="container-fluid">
+                    <a class="btn btn-primary">CHECKOUT</a>
+                </div>
+              </div>
+                
+        </div>
+           
+        </div>
+    </div>
+</div>
+
+
+ 

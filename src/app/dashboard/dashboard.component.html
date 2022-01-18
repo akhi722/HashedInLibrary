@@ -62,8 +62,8 @@
                                     <div class="col-sm-6"> 
                                         <p class="card-text">{{cc.title}}</p>
                                         <div *ngIf="cc.discounted_price">
-                                        <p class="card-text">₹{{cc.discounted_price}}</p>     
-                                    </div>
+                                          <p class="card-text">₹{{cc.discounted_price}}</p>     
+                                        </div>
                                         <div *ngIf="!cc.discounted_price">
                                             <p>₹{{cc.actual_price}}</p>  
                                         </div>
@@ -82,13 +82,11 @@
                             <h3>₹{{CartValue}}</h3>
                         </div>
                         <div class="col-sm-7">
-                            <a style="text-decoration: none;" href="#">GO TO CHECKOUT</a>
+                            <a class="btn btn-primary" (click)="checkout()">GO TO CHECKOUT</a>
                         </div>    
                     </div>
-
-                </div>
-                
-              </div>
+                </div> 
+            </div>
         </div>
     </div>
 </div>
