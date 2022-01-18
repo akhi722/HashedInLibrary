@@ -1,0 +1,97 @@
+<div class="container-fluid" style="padding: 20px;">
+   
+    <div class="row">
+    <div class="col-lg-8">
+        
+      <div *ngFor="let c of CourseList | paginate: { id:'foo',itemsPerPage: 4, currentPage: currentPage,totalItems: totalRecords }" style="padding: 10px;">
+        <div  class ="card" >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2"> 
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                    </div>
+                    <div class="col-sm-4"> 
+                        <div class="card-body">
+                            <h5 class="card-title">{{c.title}}</h5>
+                            <p class="card-text">{{c.tags}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"> 
+                        <div class="card-body">
+                            <a href="#"><span class="fa fa-star-o"></span></a>
+                        </div>  
+                    </div>
+                    <div class="col-sm-2"> 
+                        <div class="card-body">
+                            <div *ngIf="!c.discounted_price">
+                                <p class="card-text">₹{{c.actual_price}}</p>     
+                            </div>
+                            <div *ngIf="c.discounted_price">
+                                <p><s>₹{{c.actual_price}}</s> ₹{{c.discounted_price}}</p>  
+                            </div>
+                           
+                        </div>  
+                    </div>  
+                    <div class="col-sm-3"> 
+                        <div class="card-body">
+                            <a class="btn btn-primary" (click)="addToCart(c)">Add to cart</a>
+                        </div>  
+                    </div>
+                         
+                </div>
+            </div> 
+        </div>
+       </div>
+       <pagination-controls id="foo" (pageChange)="currentPage = $event" ></pagination-controls>
+    </div> 
+      <div class="col-lg-4" style="padding: 10px;">
+        <div class="card" >
+            <h5 class="card-header">YOUR CART DETAILS</h5>
+            <div class="card-body">
+                <div *ngIf="!CartValue">
+                    <p class="card-text">Your cart is empty right now.</p>
+                </div>
+                <div *ngIf="CartValue">
+                    <div  *ngFor="let cc of CartCourses" style="padding-top: 2px;">
+                        <div  class ="card">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-3"> 
+                                        <img class="card-img-top" src="..." alt="Card image cap">
+                                    </div>
+                                    <div class="col-sm-6"> 
+                                        <p class="card-text">{{cc.title}}</p>
+                                        <div *ngIf="cc.discounted_price">
+                                        <p class="card-text">₹{{cc.discounted_price}}</p>     
+                                    </div>
+                                        <div *ngIf="!cc.discounted_price">
+                                            <p>₹{{cc.actual_price}}</p>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <div class="container-fluid">
+                    <div class="row">   
+                        <div class="col-sm-5">
+                            <p>Total cart value</p>
+                            <h3>₹{{CartValue}}</h3>
+                        </div>
+                        <div class="col-sm-7">
+                            <a style="text-decoration: none;" href="#">GO TO CHECKOUT</a>
+                        </div>    
+                    </div>
+
+                </div>
+                
+              </div>
+        </div>
+    </div>
+</div>
+
+
+ 
