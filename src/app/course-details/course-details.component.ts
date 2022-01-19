@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ICourse } from '../Interfaces/course-interface';
 
 @Component({
   selector: 'app-course-details',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseDetailsComponent implements OnInit {
 
-  constructor() { }
+  @Input() currentCourseDetail!: ICourse;
+
+  constructor() { 
+    console.log('course detail' + ' ' + this.currentCourseDetail);
+  }
 
   ngOnInit(): void {
   }

@@ -1,3 +1,13 @@
+<app-navbar [bannerMessage]="bannerMessage"></app-navbar>
+
+<div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+    <div class="overlay-content">
+        <app-course-details [currentCourseDetail]="currentCourseDetail" ></app-course-details>
+    </div>
+</div>
+
+
 <div class="container-fluid" style="padding: 20px;">
    
     <div class="row">
@@ -21,7 +31,7 @@
                             <a (click)="addToWishlist(c)"><i class="fa fa-heart-o" style="font-size:18px;"></i></a>
                         </div> 
                         <div class="card-body" *ngIf="alreadyAddedToWishlist(c)">
-                            <i class="fa fa-heart" style="font-size:18px;color:red"></i>
+                            <a (click)="removeItemFromWishlist(c)"><i class="fa fa-heart" style="font-size:18px;color:red"></i></a>
                         </div>   
                     </div>
                     <div class="col-sm-2"> 
@@ -42,6 +52,9 @@
                         <div class="card-body" *ngIf="alreadyAddedToCart(c)">
                             <small style="color: olivedrab;">Added to cart</small>
                         </div> 
+                        <div class="card-body">
+                            <a class="nav-link"  (click)="openNav(c)"><small>More info></small></a>
+                        </div>
                     </div>
                          
                 </div>

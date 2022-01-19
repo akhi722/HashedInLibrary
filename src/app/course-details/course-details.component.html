@@ -1,1 +1,18 @@
-
+<div class="card mb-3">
+    <img class="card-img-top" src="..." alt="Thumbnail will be put up here">
+    <div class="card-body">
+      <p class="text-light bg-info">{{currentCourseDetail.tags}}</p>
+      <h5 class="card-title">{{currentCourseDetail.title}}</h5>
+      <p class="card-text">{{currentCourseDetail.details}}</p>
+      <div class="card-body">
+        <div *ngIf="!currentCourseDetail.discounted_price">
+            <p class="card-text">₹{{currentCourseDetail.actual_price}}</p>     
+        </div>
+        <div *ngIf="currentCourseDetail.discounted_price">
+            <p><s>₹{{currentCourseDetail.actual_price}}</s> ₹{{currentCourseDetail.discounted_price}}</p>  
+        </div>
+       
+    </div>  
+      <p class="card-text">Author - {{currentCourseDetail.author}}</p>
+    </div>
+</div>

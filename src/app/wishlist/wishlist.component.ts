@@ -9,6 +9,7 @@ import { ICourse } from '../Interfaces/course-interface';
 })
 export class WishlistComponent implements OnInit {
 
+  bannerMessage : string = '';
   wishlistCourses: ICourse[] = []; 
   cartCourses: ICourse[] =  [];
   cartValue: number = 0;
@@ -33,10 +34,7 @@ export class WishlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-      
-
-      
+      this.bannerMessage = 'WishList';
   }
 
   addToCart(course :ICourse)

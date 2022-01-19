@@ -10,6 +10,7 @@ import { ICourse } from '../Interfaces/course-interface';
 })
 export class CheckoutComponent implements OnInit {
 
+  bannerMessage: string = '';
   wishlistCourses : ICourse[] = [];
   CartCourses : ICourse[] = [];
   actualPrice : number = 0; 
@@ -43,7 +44,7 @@ export class CheckoutComponent implements OnInit {
   
 
   ngOnInit(): void {
-    
+    this.bannerMessage = 'Cart';
   }
 
   removeItemFromCart(id: string)

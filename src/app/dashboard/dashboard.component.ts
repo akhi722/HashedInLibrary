@@ -17,10 +17,11 @@ export class DashboardComponent implements OnInit {
   wishlistCourses : ICourse[] =  [];
   cartValue: number = 0;
   alert: string | undefined; 
-
+  currentCourseDetail! : ICourse;
   //varables for pagination
   currentPage: any = 1;
   totalRecords : any;
+  bannerMessage: string = '';
   constructor(private _dashboardService: DashboardService, private router: Router) { 
    
     
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
       this.cartCourses = cart.courseList;
       this.cartValue = cart.totalPrice;
     }
+    
   }
   
 
@@ -48,7 +50,7 @@ export class DashboardComponent implements OnInit {
   searchTerm!: string;
   ngOnInit(): void {
 
-    
+    this.bannerMessage = "Discover Latest Courses";
 
     //Retreiving the courses from the data source
     this._dashboardService.getAllCourses().subscribe(
@@ -56,6 +58,7 @@ export class DashboardComponent implements OnInit {
       x => {
         this.courseList = x;
         this.totalRecords = this.courseList.length;
+        this.currentCourseDetail = this.courseList[0];
         console.log(this.courseList[0].actual_price);
       },
       y => {
@@ -140,4 +143,23 @@ export class DashboardComponent implements OnInit {
     return true;
 
   }
+
+  removeItemFromWishlist(course : ICourse)
+  {
+    this.wishlistCourses =  this.wishlistCourses.filter(item  => item.id != course.id);
+
+    //updating our local storage   
+    localStorage.setItem('Wishlist', JSON.stringify(this.wishlistCourses)); 
+  }
+
+  openNav(course : ICourse) {
+    this.currentCourseDetail = course;
+
+    //console.log(this.currentCourseDetail);
+    document.getElementById("myNav")!.style.width = "100%";
+  }
+
+ closeNav() {
+    document.getElementById("myNav")!.style.width = "0%";
+ }
 }
