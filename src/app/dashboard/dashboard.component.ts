@@ -12,15 +12,25 @@ import { DashboardService } from '../services/dashboard-service/dashboard.servic
 export class DashboardComponent implements OnInit {
   
   
-  CourseList!: ICourse[];
-  CartCourses: ICourse[] =  [];
-  CartValue: number = 0;
+  courseList!: ICourse[];
+  cartCourses: ICourse[] =  [];
+  wishlistCourses : ICourse[] =  [];
+  cartValue: number = 0;
   alert: string | undefined; 
 
   //varables for pagination
   currentPage: any = 1;
   totalRecords : any;
-  constructor(private _dashboardService: DashboardService, private router: Router) { }
+  constructor(private _dashboardService: DashboardService, private router: Router) { 
+    //checking if there is anything already in the cart
+    var retreivedObject = localStorage.getItem('Cart');
+    if(retreivedObject != null)
+    {
+      var cart = JSON.parse(retreivedObject);
+      this.cartCourses = cart.courseList;
+      this.cartValue = cart.totalPrice;
+    }
+  }
   
 
   
@@ -28,14 +38,15 @@ export class DashboardComponent implements OnInit {
   searchTerm!: string;
   ngOnInit(): void {
 
+    
 
     //Retreiving the courses from the data source
     this._dashboardService.getAllCourses().subscribe(
 
       x => {
-        this.CourseList = x;
-        this.totalRecords = this.CourseList.length;
-        console.log(this.CourseList[0].actual_price);
+        this.courseList = x;
+        this.totalRecords = this.courseList.length;
+        console.log(this.courseList[0].actual_price);
       },
       y => {
         console.log(y);
@@ -46,30 +57,52 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  //Adding course list to the cart 
+  //Adding course list to the cart and local storage
   addToCart(course :ICourse)
   {
-      this.CartCourses.push(course);
 
-      //adding actual price or discounted price to the total sum if exists
+        //checking if the course is not already present in the cart
+        var temp =  this.cartCourses.filter(item  => item.id == course.id);
+        if(temp.length == 0)
+        {
+          this.cartCourses.push(course);
+      
+      
+        //adding actual price or discounted price to the total sum if exists
     
         if(course.discounted_price != null)
         {
           var sum = 0;
           sum = Number(course.discounted_price);
-          this.CartValue = this.CartValue + sum;
+          this.cartValue = this.cartValue + sum;
         }
         else{
           var sum = 0;
           sum = Number(course.actual_price);
-          this.CartValue = this.CartValue + sum;
+          this.cartValue = this.cartValue + sum;
         }
-      
-  }
+        var cart : ICart = {courseList : this.cartCourses, totalPrice : this.cartValue};
+        localStorage.setItem('Cart', JSON.stringify(cart));
+        }
+    }
 
   checkout()
   {
-     this.router.navigateByUrl('/cart',{state : [ this.CartCourses, this.CartValue]});
+    //adding the items in the local storage of the browser 
+    this.router.navigate(['/cart']);
+  }
+
+
+  addToWishlist(course :ICourse)
+  {
+    //checking if the item is not already present in the wishlist
+    var temp =  this.wishlistCourses.filter(item  => item.id == course.id);
+    if(temp.length == 0)
+    {
+      this.wishlistCourses.push(course);
+      localStorage.setItem('Wishlist', JSON.stringify(this.wishlistCourses));
+    }
+    //show some alert
   }
 
 

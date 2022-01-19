@@ -10,6 +10,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { FormsModule } from '@angular/forms';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     NavbarComponent,
     DashboardComponent,
     CheckoutComponent,
+    CourseDetailsComponent,
+    WishlistComponent,
     
   ],
   imports: [

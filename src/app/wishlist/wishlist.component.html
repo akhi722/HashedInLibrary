@@ -3,7 +3,7 @@
     <div class="row">
     <div class="col-lg-8">
         
-      <div *ngFor="let c of courseList | paginate: { id:'foo',itemsPerPage: 4, currentPage: currentPage,totalItems: totalRecords }" style="padding: 10px;">
+      <div *ngFor="let c of wishlistCourses" style="padding: 10px;">
         <div  class ="card" >
             <div class="container-fluid">
                 <div class="row">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-sm-1"> 
                         <div class="card-body">
-                            <a (click)="addToWishlist(c)"><span class="fa fa-star-o"></span></a>
+                            <a (click)="removeItemFromWishlist(c.id)"><span class="fa fa-trash"></span></a>
                         </div>  
                     </div>
                     <div class="col-sm-2"> 
@@ -42,7 +42,7 @@
             </div> 
         </div>
        </div>
-       <pagination-controls id="foo" (pageChange)="currentPage = $event" ></pagination-controls>
+      
     </div> 
       <div class="col-lg-4" style="padding: 10px;">
         <div class="card" >
@@ -81,9 +81,7 @@
                             <p>Total cart value</p>
                             <h3>₹{{cartValue}}</h3>
                         </div>
-                        <div class="col-sm-7">
-                            <a class="btn btn-primary" (click)="checkout()">GO TO CHECKOUT</a>
-                        </div>    
+                        
                     </div>
                 </div> 
             </div>
