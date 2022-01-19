@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  bannerMessage : string ='';
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
+    this.bannerMessage = "Your profile"
   }
 
 }
