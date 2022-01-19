@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     CheckoutComponent,
     CourseDetailsComponent,
     WishlistComponent,
+    UserProfileComponent,
     
   ],
   imports: [
