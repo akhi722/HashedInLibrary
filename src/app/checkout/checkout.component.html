@@ -18,9 +18,17 @@
                         </div>
                     </div>
                     <div class="col-sm-3"> 
-                        <div class="card-body">
-                            <a href="#" style="text-decoration: none;"><small>Move to Wishlist</small></a>
-                        </div>  
+                        <div *ngIf="alreadyAddedToWishlist(c)">
+                            <div class="card-body">
+                                <a style="text-decoration: none;color: darkolivegreen;"><small>In wishlist</small></a>
+                            </div>  
+                        </div>
+                        <div *ngIf="!alreadyAddedToWishlist(c)">
+                            <div class="card-body">
+                                <a (click)="addToWishlist(c)" style="text-decoration: none;"><small>Move to wishlist</small></a>
+                            </div>  
+                        </div>
+                        
                     </div>
                     <div class="col-sm-2"> 
                         <div class="card-body">

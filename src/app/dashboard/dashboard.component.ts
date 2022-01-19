@@ -22,11 +22,21 @@ export class DashboardComponent implements OnInit {
   currentPage: any = 1;
   totalRecords : any;
   constructor(private _dashboardService: DashboardService, private router: Router) { 
-    //checking if there is anything already in the cart
-    var retreivedObject = localStorage.getItem('Cart');
-    if(retreivedObject != null)
+   
+    
+    //checking if there is anything already present in wishlist
+    var retreivedObject1 = localStorage.getItem('Wishlist');
+    if(retreivedObject1 != null)
     {
-      var cart = JSON.parse(retreivedObject);
+      var wishList = JSON.parse(retreivedObject1);
+      this.wishlistCourses = wishList;
+     
+    }
+     //checking if there is anything already in the cart
+    var retreivedObject2 = localStorage.getItem('Cart');
+    if(retreivedObject2 != null)
+    {
+      var cart = JSON.parse(retreivedObject2);
       this.cartCourses = cart.courseList;
       this.cartValue = cart.totalPrice;
     }
@@ -105,5 +115,29 @@ export class DashboardComponent implements OnInit {
     //show some alert
   }
 
+  alreadyAddedToCart(course :ICourse) : boolean
+  { 
+    //checking if item is already added into the cart or not
+    var temp =  this.cartCourses.filter(item  => item.id == course.id);
+    if(temp.length == 0)
+    {
+      return false;
+    }
+    else
+    return true;
 
+  }
+
+  alreadyAddedToWishlist(course :ICourse) : boolean
+  { 
+    //checking if item is already added into the wishlist or not
+    var temp =  this.wishlistCourses.filter(item  => item.id == course.id);
+    if(temp.length == 0)
+    {
+      return false;
+    }
+    else
+    return true;
+
+  }
 }

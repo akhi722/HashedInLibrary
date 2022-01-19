@@ -10,15 +10,25 @@ import { ICourse } from '../Interfaces/course-interface';
 })
 export class CheckoutComponent implements OnInit {
 
+  wishlistCourses : ICourse[] = [];
   CartCourses : ICourse[] = [];
   actualPrice : number = 0; 
   totalCartValue : number = 0;
   constructor(private router:Router, private activatedRoute:ActivatedRoute) { 
 
-    var retreivedObject = localStorage.getItem('Cart');
-    if(retreivedObject != null)
+    //retreiving items from the wishlist
+    var retreivedObject1 = localStorage.getItem('Wishlist');
+    if(retreivedObject1 != null)
     {
-      var cart = JSON.parse(retreivedObject);
+      var wishlist = JSON.parse(retreivedObject1);
+      this.wishlistCourses = wishlist;
+    }
+
+    //retreiving items from the cart
+    var retreivedObject2 = localStorage.getItem('Cart');
+    if(retreivedObject2 != null)
+    {
+      var cart = JSON.parse(retreivedObject2);
       this.CartCourses = cart.courseList;
       this.totalCartValue = cart.totalPrice;
     }
@@ -64,4 +74,27 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('Cart', JSON.stringify(cart)); 
   }
 
+  addToWishlist(course :ICourse)
+  {
+    //checking if the item is not already present in the wishlist
+    var temp =  this.wishlistCourses.filter(item  => item.id == course.id);
+    if(temp.length == 0)
+    {
+      this.wishlistCourses.push(course);
+      localStorage.setItem('Wishlist', JSON.stringify(this.wishlistCourses));
+    }
+    //show some alert
+  }
+  alreadyAddedToWishlist(course :ICourse) : boolean
+  { 
+    //checking if item is already added into the wishlist or not
+    var temp =  this.wishlistCourses.filter(item  => item.id == course.id);
+    if(temp.length == 0)
+    {
+      return false;
+    }
+    else
+    return true;
+
+  }
 }

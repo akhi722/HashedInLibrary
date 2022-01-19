@@ -73,4 +73,17 @@ export class WishlistComponent implements OnInit {
     //updating our local storage   
     localStorage.setItem('Wishlist', JSON.stringify(this.wishlistCourses)); 
   }
+
+  alreadyAddedToCart(course :ICourse) : boolean
+  { 
+    //checking if item is already added into the cart or not
+    var temp =  this.cartCourses.filter(item  => item.id == course.id);
+    if(temp.length == 0)
+    {
+      return false;
+    }
+    else
+    return true;
+
+  }
 }
